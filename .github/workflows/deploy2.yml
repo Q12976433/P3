@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches: master
+
+
+env:
+  AWS_REGION: ap-southeast-2
+  AWS_ACCESS_KEY_ID: AKIAY6CJTB2PLISSHQ5A
+  AWS_SECRET_ACCESS_KEY: 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
+  AWS_S3_BUCKET_NAME: frontend999
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+    - name: Build app
+      run: npm run build
+    - run: aws s3 sync ./out s3://frontend999
