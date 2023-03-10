@@ -20,10 +20,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the application
-        run: npm run build
-      - run: npm run export
-    
+
+      - name: Build
+        run: |
+          npm i
+          npm run build
+          npm run export
+
 
       - name: Deploy to AWS S3
         uses: aws-actions/configure-aws-credentials@v1
